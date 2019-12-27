@@ -1,0 +1,63 @@
+ID: getUserName
+_schema-version: '2.1'
+description: simply retrieves the user name
+version: 0.0.1
+modules:
+  - name: getUserName-db
+    type: hdb
+    path: db
+    parameters:
+      memory: 256M
+      disk-quota: 256M
+    requires:
+      - name: getUserName-db-hdi-container
+  - name: getUserName-srv
+    type: nodejs
+    path: srv
+    parameters:
+      memory: 64M
+      disk-quota: 64M
+    provides:
+      - name: srv_api
+        properties:
+          url: '${default-url}'
+    requires:
+      - name: getUserName-db-hdi-container
+      - name: getUserName-uaa
+  - name: getUserName
+    type: nodejs
+    path: getUserName
+    provides:
+      - name: getUserName_api
+        properties:
+          url: '${default-url}'
+    parameters:
+      memory: 64M
+      disk-quota: 64M
+    requires:
+      - name: getUserName-db-hdi-container
+      - name: getUserName-uaa
+  - name: displayInfo
+    type: html5
+    path: displayInfo
+    requires:
+      - name: getUserName_api
+        group: destinations
+        properties:
+          forwardAuthToken: true
+          name: getUserName_api
+          url: '~{url}'
+      - name: getUserName-uaa
+resources:
+  - name: getUserName-db-hdi-container
+    type: com.sap.xs.hdi-container
+    properties:
+      hdi-container-name: '${service-name}'
+  - name: getUserName-uaa
+    type: com.sap.xs.uaa-space
+    parameters:
+      path: ./xs-security.json
+      service: xsuaa
+      config:
+        xsappname: getUserName
+        tenant-mode: dedicated

@@ -1,0 +1,14 @@
+{
+	"xsappname": "getUserName",
+	"scopes": [{
+		"name": "$XSAPPNAME.User",
+		"description": "get user name"
+	}],
+	"role-templates": [{
+		"name": "WhseRTLSUserRole",
+		"description" : "Warehouse RTLS user role",
+		"scope-references": [
+							"$XSAPPNAME.User"
+							]
+	}]
+}
