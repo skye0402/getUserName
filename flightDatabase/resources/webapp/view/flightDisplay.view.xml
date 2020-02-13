@@ -1,0 +1,20 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:html="http://www.w3.org/1999/xhtml" xmlns="sap.m" controllerName="gunter.flightDatabase.controller.flightDisplay" displayBlock="true">
+	<App id="idAppControl">
+		<pages>
+			<Page title="{i18n>title}">
+				<content>
+				    <List noDataText="Drop list items here" id="list0" items="{flightModel>/flightDetailsSet}">
+				        <items>
+				            <StandardListItem type="Navigation" title="{flightModel>Carrid}/{flightModel&gt;Connid}" description="{flightModel>Fldate}" icon="sap-icon://picture" id="flightDataItem"/>
+				        </items>
+				    </List>
+				    <InputListItem type="Navigation" label="Input List Item" id="item0">
+				        <content>
+				            <Input ariaLabelledBy="__item0-label" value="input" width="100%" id="input0"/>
+				        </content>
+				    </InputListItem>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

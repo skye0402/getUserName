@@ -48,6 +48,11 @@ modules:
           name: getUserName_api
           url: '~{url}'
       - name: getUserName-uaa
+
+  - name: flightDatabase
+    type: html5
+    path: flightDatabase
+
 resources:
   - name: getUserName-db-hdi-container
     type: com.sap.xs.hdi-container
