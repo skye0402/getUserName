@@ -48,11 +48,13 @@ modules:
           name: getUserName_api
           url: '~{url}'
       - name: getUserName-uaa
-
   - name: flightDatabase
     type: html5
     path: flightDatabase
-
+    parameters:
+      port: 51888
+    requires:
+      - name: ui5-service
 resources:
   - name: getUserName-db-hdi-container
     type: com.sap.xs.hdi-container
@@ -61,8 +63,13 @@ resources:
   - name: getUserName-uaa
     type: com.sap.xs.uaa-space
     parameters:
-      path: ./xs-security.json
+      path: xs-security.json
       service: xsuaa
       config:
         xsappname: getUserName
         tenant-mode: dedicated
+  - name: ui5-service
+    type: com.sap.xs.ui5
+    description: UI5 as a service from HANA XSA
+    parameters:
+      service-plan: sapui5-1.60
